@@ -1,9 +1,6 @@
 package com.ororoauto.jetpackcomposesample.ui.sideeffect
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -30,7 +27,7 @@ fun SideEffectScreen() {
             var counter by remember { mutableStateOf(0) }
             val list = remember { mutableStateListOf<String>() }
 
-            // keyの変数(ほぼStateが指定)が変更される度に呼ばれる(Coroutineのキャンセル→発火)
+            // keyの変数が変更される度に呼ばれる(Coroutineのキャンセル→発火)
             LaunchedEffect(key1 = counter) {
                 list.add(0, "${Date()} LaunchedEffect(key1 = counter) called")
             }
@@ -52,13 +49,12 @@ fun SideEffectScreen() {
                     Modifier
                         .fillMaxWidth()
                         .weight(1F)
+                        .padding(horizontal = 4.dp)
+                    ,
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     items(list) { item ->
-                        Text(
-                            item,
-                            modifier = Modifier
-                                .padding(8.dp)
-                        )
+                        Text(item)
                     }
                 }
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
